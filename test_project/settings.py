@@ -1,11 +1,8 @@
-import django
 import os
 import djcelery
 SECRET_KEY = 'shhh'
 DEBUG = True
 STATIC_URL = '/static/'
-
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -13,33 +10,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'tmp',
-        'TEST': {
-            'NAME': 'tmp'
-        }
-    },
-    'alt': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'tmp2',
-        'TEST': {
-            'NAME': 'tmp2'
-        }
-    },
-    'not_registered': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'tmp3',
-        'TEST': {
-            'NAME': 'tmp3'
-        }
     }
 }
-
-EXPLORER_CONNECTIONS = {
-    #'Postgres': 'postgres',
-    #'MySQL': 'mysql',
-    'SQLite': 'default',
-    'Another': 'alt'
-}
-EXPLORER_DEFAULT_CONNECTION = 'default'
 
 ROOT_URLCONF = 'explorer.tests.urls'
 
@@ -74,16 +46,13 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
 )
 
-MIDDLEWARE = [
+MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-]
-
-if django.VERSION < (1, 10):
-    MIDDLEWARE_CLASSES = MIDDLEWARE
-    MIDDLEWARE_CLASSES.append('django.contrib.auth.middleware.SessionAuthenticationMiddleware')
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+)
 
 TEST_RUNNER = 'djcelery.contrib.test_runner.CeleryTestSuiteRunner'
 

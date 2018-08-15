@@ -1,5 +1,4 @@
 pip install -r requirements.txt
-pip install -r optional-requirements.txt
 python manage.py migrate
 python manage.py shell <<ORM
 from django.contrib.auth.models import User
